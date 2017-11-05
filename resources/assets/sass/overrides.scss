@@ -1,3 +1,11 @@
+.navbar-brand{
+  a{
+    font-weight: bold;
+   // color:$;
+    font-size:20px;
+
+  }
+}
 /* ========================================
    =========== Dropdown Override ==========
    ======================================== */
@@ -30,6 +38,7 @@
       display: block;
       padding: 5px 0 5px 15px;
       margin: 5px 0;
+      color:black;
       &:hover {
         background-color: whitesmoke;
       }
@@ -73,6 +82,7 @@ button.nav-item {
 
   &:hover {
     color: $link-hover;
+
   }
 
   // Modifiers
@@ -95,8 +105,8 @@ button.nav-item {
   }
 
   &.is-active {
-    border-bottom: 3px solid $primary;
-    color: $primary;
+   border-bottom: 3px solid $primary;
+   color: $primary;
     padding-bottom: calc(0.75rem - 3px);
   }
 }
@@ -106,6 +116,8 @@ button.nav-item {
   max-height: 2.8rem;
 }
 
+
 .nav {
   height: 4.5rem;
+
 }
