@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if (Request::has('password') && !empty($request->password)) {
+        if ( !empty($request->password)) {
             //set the manual password
             $password = trim($request->password);
         } else {
@@ -65,13 +65,13 @@ class UserController extends Controller
         $fields = $request->all();
         $fields['password']= $password;
 
-        $user = create($fields);
+        $user = User::create($fields);
 
 
 
         Session::flash('success','The user was successfully saved');
 
-        return redirect()->route('articles.show',$user->id);
+        return redirect()->route('users.show',$user->id);
     }
 
     /**

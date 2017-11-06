@@ -5,6 +5,7 @@ namespace App\Helper;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Permission;
 
 class Helper
 {
@@ -20,4 +21,5 @@ class Helper
         return $str;
 
     }
+
 }
