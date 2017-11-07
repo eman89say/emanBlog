@@ -9,12 +9,13 @@
             </div>
         </div>
         <hr class="m-t-0">
+        <form action="{{route('users.update',$user->id)}}" method="post">
+            {{method_field('put')}}
+            {{csrf_field()}}
 
         <div class="columns">
             <div class="column">
-                <form action="{{route('users.update',$user->id)}}" method="post">
-                    {{method_field('put')}}
-                    {{csrf_field()}}
+
                     <div class="field">
                         <label for="name" class="label">Name : </label>
                         <p class="control">
@@ -49,13 +50,33 @@
                         </p>
                     </div>
 
-                    <button class="button is-primary" type="submit">Edit User</button>
 
+            </div> {{--end if 1st column --}}
 
-                </form>
+            <div class="column">
+                <label for="roles" class="label">Roles : </label>
+                <input type="hidden" class="input" name="roles"  :value="rolesSelected">
+                <ul>
+                    @foreach($roles as $role)
+                        <div class="field">
+                            <b-checkbox v-model="rolesSelected" :native-value="{{$role->id}}">
+                                {{$role->display_name}}</b-checkbox>
+                        </div>
+                    @endforeach
+                </ul>
+            </div>   {{--end if 2nd column --}}
+
+        </div>
+        <div class="columns">
+            <div class="column">
+                <hr>
+                <button class="button is-primary is-pulled-right" type="submit">Edit User</button>
+
             </div>
         </div>
-    </div>
+        </form>
+
+    </div>   {{--end if flex container --}}
 @endsection
 
 @section('scripts')
@@ -64,7 +85,8 @@
             el:'#app',
             data() {
                 return {
-                    password_options: ''
+                    password_options: 'keep',
+                    rolesSelected:{!! $user->roles->pluck('id') !!}
                 }
             }
         });

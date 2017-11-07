@@ -22,28 +22,28 @@
                     <div class="field" v-if="permissionType =='basic'">
                         <label for="display_name" class="label">Name (Display Name) </label>
                         <p class="control">
-                            <input type="text" class="input" name="display_name" id="display_name">
+                            <input type="text" class="input" name="display_name" value="{{old('display_name')}}" id="display_name" required>
                         </p>
                     </div>
 
                     <div class="field" v-if="permissionType =='basic'">
                         <label for="name" class="label">Slug </label>
                         <p class="control">
-                            <input type="text" class="input" name="name" id="name">
+                            <input type="text" class="input" name="name" value="{{old('name')}}" id="name" required>
                         </p>
                     </div>
 
                     <div class="field" v-if="permissionType =='basic'">
                         <label for="description" class="label">Description </label>
                         <p class="control">
-                            <input type="text" class="input" name="description" id="description" placeholder="Describe what this permission does">
+                            <input type="text" class="input" name="description" id="description" value="{{old('description')}}" placeholder="Describe what this permission does">
                         </p>
                     </div>
 
                     <div class="field" v-if="permissionType =='crud'">
-                        <label for="resources" class="label">Resource</label>
+                        <label for="resource" class="label">Resource</label>
                         <p class="control">
-                            <input type="text" class="input" name="resources" id="resources" v-model="resource" placeholder="The name of the resource">
+                            <input type="text" class="input" name="resource" id="resource" v-model="resource" value="{{old('resource')}}" placeholder="The name of the resource" required>
                         </p>
                     </div>
 

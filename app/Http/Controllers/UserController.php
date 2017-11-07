@@ -8,6 +8,8 @@ use App\Http\Requests\UserRequest;
 use App\Helper\Helper;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use App\Role;
+
 class UserController extends Controller
 {
 
@@ -82,7 +84,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user=User::findOrFail($id);
+        $user=User::where('id',$id)->with('roles')->first();
         return view('manage.users.show')->withUser($user);
     }
 
@@ -94,9 +96,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::findOrFail($id);
-
-        return view('manage.users.edit')->withUser($user);
+        $user=User::where('id',$id)->with('roles')->first();
+        $roles=Role::all();
+        return view('manage.users.edit',compact('user','roles'));
     }
 
     /**
@@ -109,24 +111,29 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user=User::findOrFail($id);
+        $fields = $request->all();
+
         if ($request->password_options == 'manual') {
             //set the manual password
             $password = trim($request->password);
+            $fields['password']= Hash::make($password);
+
+
         } elseif($request->password_options == 'auto') {
             //generate password
             $password= $this->helperObj->generatePassword();
-        }
-        $password= Hash::make($password);
-        $fields = $request->all();
-        $fields['password']= $password;
+            $fields['password']= Hash::make($password);
 
-        $user = update($fields);
+        }
+
+        $user->update($fields);
+        $user->syncRoles(explode(',',$request->roles));
 
 
 
         Session::flash('success','The user was successfully updated');
 
-        return redirect()->route('articles.show',$user->id);
+        return redirect()->route('users.show',$user->id);
 
 
     }

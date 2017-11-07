@@ -8,6 +8,7 @@
     @include('_includes.nav.main')
     @include('_includes.nav.manage')
     <div class="management-area" id="app">
+        @include('_includes.messages')
 
         @yield('content')
    </div>

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 
-class UserRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,12 @@ class UserRequest extends FormRequest
     {
         $id= isset($this->segments()[2])? $this->segments()[2]: "";
 
+
         return [
-            'name' => 'required|max:255',
-            'email'=>['required','email',Rule::unique('users','email')->ignore($id)],
-            'password'=>'sometimes|required'
+            'display_name' => 'sometimes|required|max:255',
+            'name'=>['sometimes','required','max:255','alpha_dash',Rule::unique('roles','name')->ignore($id)],
+            'description' => 'sometimes|max:255',
+
         ];
     }
 }
