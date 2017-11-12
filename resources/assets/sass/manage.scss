@@ -5,6 +5,7 @@
   background-color: white;
   overflow-y: scroll;
 
+
   .menu-list{
     li{
       a:hover{
@@ -25,4 +26,15 @@
 
 .flex-container{
   margin:25px;
+}
+
+.submenu{
+  max-height:0;
+  overflow:hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-list li ul {
+  margin-top: 0;
+  margin-bottom: 0;
 }
